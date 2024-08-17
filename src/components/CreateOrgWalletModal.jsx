@@ -1,14 +1,48 @@
 // src/components/CreateOrgWalletModal.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function CreateOrgWalletModal({ closeModal }) {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: '',
+    role: 'medical-staff', // Default value
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle the form submission logic here
-    navigate('/medical-staff'); // Assuming medical staff will be the next page after creation
+
+    try {
+      const response = await fetch('http://localhost:8000/wallet/wallet', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: formData.name }),
+      });
+
+      if (response.ok) {
+        // Navigate based on selected role
+        if (formData.role === 'medical-staff') {
+          navigate('/medical-staff');
+        } else if (formData.role === 'external-party') {
+          navigate('/external-party');
+        }
+      } else {
+        console.error('Failed to create wallet');
+        // Handle error
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error
+    }
   };
 
   return (
@@ -18,11 +52,24 @@ function CreateOrgWalletModal({ closeModal }) {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700">Name</label>
-            <input type="text" className="w-full border border-gray-300 rounded px-4 py-2 mt-2" required />
+            <input 
+              type="text" 
+              name="name"
+              value={formData.name} 
+              onChange={handleChange} 
+              className="w-full border border-gray-300 rounded px-4 py-2 mt-2" 
+              required 
+            />
           </div>
           <div className="mb-4">
             <label className="block text-gray-700">Role</label>
-            <select className="w-full border border-gray-300 rounded px-4 py-2 mt-2" required>
+            <select 
+              name="role" 
+              value={formData.role} 
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded px-4 py-2 mt-2" 
+              required
+            >
               <option value="medical-staff">Medical Staff</option>
               <option value="external-party">External Party</option>
             </select>
