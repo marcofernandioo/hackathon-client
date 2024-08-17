@@ -1,5 +1,5 @@
 // src/pages/ViewMedRecPatient.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Table from '../components/Table';
 import RecordDetail from '../components/RecordDetail';
 

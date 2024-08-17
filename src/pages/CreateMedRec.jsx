@@ -122,7 +122,6 @@ function CreateMR() {
             value={formData.bloodPressure}
             onChange={handleChange}
           />
-          
           <input
             type="number"
             name="heartRate"
