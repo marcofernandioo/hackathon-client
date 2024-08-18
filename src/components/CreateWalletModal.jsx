@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
  
 function CreateWalletModal({ closeModal }) {
@@ -31,6 +32,9 @@ function CreateWalletModal({ closeModal }) {
  
       if (response.ok) {
         // Navigate to /patients after successful form submission
+        const result = await response.json()
+        const walletAddress = result.result.wallet.wallet_address;
+        sessionStorage.setItem("walletAddress", walletAddress)
         navigate('/patients');
       } else {
         console.error('Failed to create wallet');

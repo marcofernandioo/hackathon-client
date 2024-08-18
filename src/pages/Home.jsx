@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // src/pages/Home.jsx
 import React, { useState } from 'react';
 import CreateWalletModal from '../components/CreateWalletModal';
@@ -35,12 +36,12 @@ function Home() {
         >
           Create Organization Wallet
         </button>
-        <button 
+        {/* <button 
           onClick={openLoginModal} 
           className="bg-yellow-500 text-white px-6 py-3 rounded hover:bg-yellow-600 transition"
         >
           Login
-        </button>
+        </button> */}
       </div>
 
       {isUserModalOpen && <CreateWalletModal closeModal={closeUserModal} />}

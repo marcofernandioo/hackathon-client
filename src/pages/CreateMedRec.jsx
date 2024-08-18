@@ -6,7 +6,7 @@ function CreateMR() {
  
   // State for each input field
   const [formData, setFormData] = useState({
-    patientID: '',
+    walletAddress: '',
     visitDate: '',
     hospital: '',
     doctorName: '',
@@ -34,7 +34,7 @@ function CreateMR() {
     event.preventDefault();
     console.log('Form Submitted', formData);
    
-    const response = await fetch('http://localhost:8000/mr/create', {
+    const response = await fetch('http://localhost:8000/mr/store', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -44,8 +44,6 @@ function CreateMR() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const result = await response.json();
-    console.log(result)
  
     setIsModalOpen(true);
   };
@@ -61,10 +59,10 @@ function CreateMR() {
         <div className="grid grid-cols-2 gap-4">
           <input
             type="text"
-            name="patientID"
+            name="walletAddress"
             placeholder="Patient ID"
             className="p-2 border"
-            value={formData.patientID}
+            value={formData.walletAddress}
             onChange={handleChange}
           />
           <input

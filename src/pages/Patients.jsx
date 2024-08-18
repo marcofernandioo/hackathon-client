@@ -10,7 +10,7 @@ function Patients() {
   const items = [
     { to: 'medical-records', label: 'View Medical Records' },
     { to: 'approve-requests', label: 'Approve Requests' },
-    { to: 'approve-mr-requests', label: 'Approve MR Requests' }, // New tab
+    { to: 'approve-mr-requests', label: 'Approve Access' }, // New tab
   ];
 
   return (
